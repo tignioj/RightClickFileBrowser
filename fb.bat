@@ -1,10 +1,17 @@
 @echo off
 @REM 如果不开启这个Setlocal EnableDelayedExpansion(变量延迟),则用户的输入无法读取
 Setlocal EnableDelayedExpansion
+@REM %~dp0 current directory 
+@REM %1 first param
+@REM -a listen address 
+@REM -p listen port 
+@REM -r listen path root 
+@REM --noauth use the noauth auther
 SET port=8090
 SET address="0.0.0.0"
 SET databasePath=%~dp0filebrowser.db
 SET shareDirectory=%1
+
 
 @REM 检测程序是否存在，如果不存在，则退出脚本
 if not exist "%~dp0filebrowser.exe" (
@@ -18,7 +25,7 @@ if not exist "%~dp0filebrowser.exe" (
 goto detectPort
 @REM 输出正在使用端口的程序，如果没有输出，则errorlevel为1，直接执行runIt，否则执行killPort
 :detectPort
-    netstat -o -n -a | findstr "%port%"
+    netstat -o -n -a | findstr "%port%" | find "LISTENING"
     if '%errorlevel%' GEQ '1'  (
         goto runIt
     ) else (
@@ -26,9 +33,8 @@ goto detectPort
     )
 
 
-
 :killPort
-    echo port is already in use, forced close it now?
+    echo port %port% is already in use, forced close it now?
     set /p userIn="Enter(Y/N):"
     echo "Your input:!userIn!"
     if "!userIn!" EQU "Y" (
@@ -48,12 +54,6 @@ goto detectPort
 
 
 :runIt
-    @REM %~dp0 current directory 
-    @REM %1 first param
-    @REM -a listen address 
-    @REM -p listen port 
-    @REM -r listen path root 
-    @REM --noauth use the noauth auther when
     echo ---------------------------------------
     echo Script Directory:%0
     echo Execute path:"%CD%"
@@ -61,16 +61,5 @@ goto detectPort
     echo ----------------------------------------
     echo Starting FileBrowser...
 
-
-    @REM Check Port
-    @REM netstat -o -n -a | findstr %port%
-    @REM setlocal enableDelayedExpansion
-    @REM for /f "delims=" %%L in ('netstat -o -n -a ^| findstr "%port%"') do (
-    @REM     set "line=%%L"
-    @REM     for %%C in (!line!) do set last_col=%%C
-    @REM     echo !last_col!
-    @REM     set /p userIn=Enter (Y/N):
-    @REM     taskkill /f /pid !last_col!
-    @REM )
-
+    echo %shareDirectory%
     %~dp0filebrowser.exe --noauth -a %address% -p %port%  -d %databasePath%  -r %shareDirectory%

@@ -51,7 +51,8 @@ if '%errorlevel%' NEQ '0' (
     @REM For Directory Background
     REG ADD HKEY_CLASSES_ROOT\Directory\Background\shell\RightClickFileBrowser  /t REG_SZ /f /d "Share by FileBrowser"  >nul 2>&1
     REG ADD HKEY_CLASSES_ROOT\Directory\Background\shell\RightClickFileBrowser /v icon  /t REG_SZ /f /d "%~dp0filebrowser.ico"  >nul 2>&1
-    REG ADD HKEY_CLASSES_ROOT\Directory\Background\shell\RightClickFileBrowser\command  /t REG_SZ /f /d "\"%~dp0fb.bat\" \"%%V\""  >nul 2>&1
+    @REM 注意这里后面的%V我故意加了个\\，这是因为当根目录为"E:\"的时候，目录将无法识别，加多一个\则变为"E:\\"，则可以解决
+    REG ADD HKEY_CLASSES_ROOT\Directory\Background\shell\RightClickFileBrowser\command  /t REG_SZ /f /d "\"%~dp0fb.bat\" \"%%V\\\""  >nul 2>&1
 
     @REM For File
     REG ADD HKEY_CLASSES_ROOT\*\shell\RightClickFileBrowser  /t REG_SZ /f /d "Share by FileBrowser"  >nul 2>&1
