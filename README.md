@@ -1,8 +1,13 @@
-# 一款用go语言编写的开源内网文件管理器
+# 简介
+- filebrowser是一款用go语言编写、基于http的开源内网传输软件。正常情况下，每次使用的时候都要输入启动命令和参数来完成文件分享。为了方便，我将它加入到右键菜单栏中。您只需要对着你想要分享的目录，右键点击"Share by FileBrowser"即可！
 - 文件管理器项目地址 https://filebrowser.org
 - 可以在这里获取最新版 https://github.com/filebrowser/filebrowser/releases/
-- 通常我使用这个软件来完成局域网传输文件。
-正常情况下，每次使用的时候都要输入启动命令和参数来完成文件分享。为了方便，我将它加入到右键菜单栏中。您只需要对着你想要分享的目录，右键点击"Share by FileBrowser"即可！
+
+
+# 为什么选择FileBrowser
+- 基于HTTP，这样一来所有能执行http请求的几乎都能访问共享的文件，比如手机的浏览器，或者linux的wget, curl等命令行工具
+- 可全平台运行
+
 
 # 如何使用
 ## S1. 右键管理员运行`install.bat`
@@ -10,7 +15,7 @@
 - 其次，它会把当前目录下的`fb.bat`添加到注册表。
 - 最后，当出现`Install successfully!`表示添加成功
 
-## S2. 分享的文件或者文件夹
+## S2. 分享文件或者文件夹
 鼠标对着想要分享的文件或者文件夹，右键点击"Share by FileBrowser"
 此时会打开一个终端，如果显示端口被占用，会提示你是否关闭占用端口的程序
 
@@ -22,7 +27,7 @@
 - 端口：8090
 - 监听地址:0.0.0.0
 - 无需授权访问:--noauth
-如需修改配置请看官网文档 https://filebrowser.org/cli/filebrowser
+- 如需修改配置请看官网文档 https://filebrowser.org/cli/filebrowser
 
 
 # 如何卸载
