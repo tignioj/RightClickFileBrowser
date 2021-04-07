@@ -37,7 +37,6 @@ goto detectPort
     set /p userIn="Enter(Y/N):"
     echo "Your input:!userIn!"
     if "!userIn!" EQU "Y" (
-        @REM netstat -o -n -a ^| findstr "%port% will out put which process using port，last coloum is pid, get PID by for loop
         for /f "delims=" %%L in ('netstat -o -n -a ^| findstr "%port%"') do (
             set "line=%%L"
             for %%C in (!line!) do set last_col=%%C
