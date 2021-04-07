@@ -10,10 +10,16 @@
 
 
 # 如何使用
-## S1. 右键管理员运行`install.bat`
-- 首先，它将运行7z1900-extra\7za.exe 解压filebrowser.7z到当前目录，此时filebrowser.exe将出现在当前目录。（因为filebrowser.exe大小有30M+，压缩后只有6M不到，而7zip这个软件才3M，因此加入7zip方案，压缩了项目大小以及方便脚本一体化运行）
-- 其次，它会把当前目录下的`fb.bat`添加到注册表。
-- 最后，当出现`Install successfully!`表示添加成功
+## S1. 下载项目到本地
+- https://github.com/tignioj/RightClickFileBrowser/releases (不打包7zip)
+- 或者直接克隆项目到本地 `git clone https://github.com/tignioj/RightClickFileBrowser.git` (打包了7zip)
+
+## S2. 右键管理员运行`install.bat`
+install.bat脚本做了什么？
+
+- s2.1:首先，它将运行7z1900-extra\7za.exe 解压filebrowser.7z到当前目录，此时filebrowser.exe将出现在当前目录。（因为filebrowser.exe大小有30M+，压缩后只有6M不到，而7zip这个软件才3M，因此加入7zip方案，压缩了项目大小以及方便脚本一体化运行）注：如果是Release界面下载的，则默认已经解压，s2.1会被跳过。
+- s2.2:其次，它会把当前目录下的`fb.bat`添加到注册表。
+- s2.3:最后，当出现`Install successfully!`表示添加成功
 
 ## S2. 分享文件或者文件夹
 鼠标对着想要分享的文件或者文件夹，右键点击"Share by FileBrowser"

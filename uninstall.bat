@@ -61,7 +61,6 @@ if '%errorlevel%' NEQ '0' (
     REG DELETE HKEY_CLASSES_ROOT\Directory\Background\shell\RightClickFileBrowser /f  >nul 2>&1
     REG DELETE HKEY_CLASSES_ROOT\*\shell\RightClickFileBrowser /f  >nul 2>&1
 
-    del /f filebrowser.exe >nul 2>&1
     del /f filebrowser.db >nul 2>&1
     if '%errorlevel%' NEQ '0' (
         echo "Uninstall failed!"
