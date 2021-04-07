@@ -20,7 +20,7 @@ if '%errorlevel%' NEQ '0' (
 :gotAdmin
     pushd "%CD%"
     CD /D "%~dp0"
-    @REM 检测程序是否正在运行
+    @REM detect is program running...
     tasklist /FI "IMAGENAME eq filebrowser.exe" 2>NUL | find /I /N "filebrowser.exe">NUL
     if "%ERRORLEVEL%"=="0" (
         tasklist /FI "ImageName eq filebrowser.exe" 
@@ -55,8 +55,6 @@ if '%errorlevel%' NEQ '0' (
     )
     goto startUninstall
 
-
-@REM 开始卸载
 :startUninstall
     @REM Adding Registry
     REG DELETE HKEY_CLASSES_ROOT\Directory\shell\RightClickFileBrowser /f  >nul 2>&1

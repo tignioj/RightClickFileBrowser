@@ -1,5 +1,4 @@
 @echo off
-@REM 如果不开启这个Setlocal EnableDelayedExpansion(变量延迟),则用户的输入无法读取
 Setlocal EnableDelayedExpansion
 @REM %~dp0 current directory 
 @REM %1 first param
@@ -13,7 +12,7 @@ SET databasePath=%~dp0filebrowser.db
 SET shareDirectory=%1
 
 
-@REM 检测程序是否存在，如果不存在，则退出脚本
+@REM detect filebrowser.exe is existed.
 if not exist "%~dp0filebrowser.exe" (
         echo "filebrowser.exe NOT FOUND!"
         echo "Please check if filebrowser.exe exists in %~dp0, then rerun this script."
@@ -21,9 +20,9 @@ if not exist "%~dp0filebrowser.exe" (
         exit /b 1
     ) 
 
-@REM 先检测端口
+
 goto detectPort
-@REM 输出正在使用端口的程序，如果没有输出，则errorlevel为1，直接执行runIt，否则执行killPort
+@REM show which program using port
 :detectPort
     netstat -o -n -a | findstr "%port%" | find "LISTENING"
     if '%errorlevel%' GEQ '1'  (
@@ -38,15 +37,14 @@ goto detectPort
     set /p userIn="Enter(Y/N):"
     echo "Your input:!userIn!"
     if "!userIn!" EQU "Y" (
-        @REM netstat -o -n -a ^| findstr "%port%这个命令会打印占用端口的程序，最后一列是pid，我们需要循环拿到PID
+        @REM netstat -o -n -a ^| findstr "%port% will out put which process using port，last coloum is pid, get PID by for loop
         for /f "delims=" %%L in ('netstat -o -n -a ^| findstr "%port%"') do (
             set "line=%%L"
             for %%C in (!line!) do set last_col=%%C
             echo "kill !last_col!"
-            @REM 强制关闭端口，由于开启了变量延迟，用!变量名!引用
+            @REM force close process
             taskkill /f /pid !last_col! >nul 2>&1
         )
-        @REM 关闭占用端口的程序后，重新检测
         goto detectPort
     ) else (
         exit /B 1
